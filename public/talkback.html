@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TalkBack aria-sort check</title>
+    <style>
+      body { font: 18px/1.4 system-ui, sans-serif; margin: 16px; }
+      table { border-collapse: collapse; margin-bottom: 8px; }
+      th, td { border: 1px solid #999; padding: 8px 12px; text-align: left; }
+      th:focus { outline: 3px solid #0a66ff; }
+      .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    </style>
+  </head>
+  <body>
+    <h1>TalkBack aria-sort check</h1>
+    <p>Static markup, no JavaScript. Each header is focusable (Tab). Three variants of a sorted "Name" column.</p>
+
+    <h2>A. aria-sort only</h2>
+    <table>
+      <thead>
+        <tr>
+          <th id="a1" tabindex="0" aria-sort="descending">Name</th>
+          <th id="a2" tabindex="0" aria-sort="none">Age</th>
+        </tr>
+      </thead>
+      <tbody><tr><td>Ada</td><td>36</td></tr></tbody>
+    </table>
+
+    <h2>B. aria-describedby only (what react-aria emits on Android today)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th id="b1" tabindex="0" aria-describedby="b1-desc">Name</th>
+          <th id="b2" tabindex="0" aria-describedby="b2-desc">Age</th>
+        </tr>
+      </thead>
+      <tbody><tr><td>Ada</td><td>36</td></tr></tbody>
+    </table>
+    <span id="b1-desc" class="sr-only">sortable, descending</span>
+    <span id="b2-desc" class="sr-only">sortable</span>
+
+    <h2>C. both aria-sort and aria-describedby</h2>
+    <table>
+      <thead>
+        <tr>
+          <th id="c1" tabindex="0" aria-sort="descending" aria-describedby="c1-desc">Name</th>
+          <th id="c2" tabindex="0" aria-sort="none" aria-describedby="c2-desc">Age</th>
+        </tr>
+      </thead>
+      <tbody><tr><td>Ada</td><td>36</td></tr></tbody>
+    </table>
+    <span id="c1-desc" class="sr-only">sortable, descending</span>
+    <span id="c2-desc" class="sr-only">sortable</span>
+  </body>
+</html>
